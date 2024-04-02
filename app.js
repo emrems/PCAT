@@ -1,3 +1,5 @@
+//npm start ile sunucumu başlatıyorum
+
 //request ve response arasındaki herşey middleweardir
 
 const express = require('express');
@@ -10,6 +12,8 @@ app.set('view engine', 'ejs');
 
 //MİDDLEWEARS
 app.use(express.static('public')); //static dosyalar için public klasörü
+app.use(express.urlencoded({extended:true}))//nu middlewaere sayesinde rep res döngüsünü sonlandırdık
+app.use(express.json())
 
 //ROUTES
 app.get('/', (req, res) => {
@@ -23,6 +27,11 @@ app.get('/about', (req, res) => {
 
 app.get('/add', (req, res) => {
   res.render('add');
+});
+
+app.post('/photos', (req, res) => {//add.ejs de action kısmında /photos yonlendirmesi yapmıştım şimdi onları yakalıyorum
+  console.log(req.body);//istek attığımız verileri consolda gösterir
+  res.redirect('/')//tekrar ana sayfaya yönlendirdi
 });
 
 
